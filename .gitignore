@@ -1,0 +1,39 @@
+# React Native
+# Build artifacts
+android/.gradle/
+android/app/build/
+android/app/src/main/res/mipmap-*/ic_launcher.png
+android/app/src/main/res/mipmap-*/ic_launcher_round.png
+ios/build/
+ios/Pods/
+ios/Podfile.lock
+
+# Xcode
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/xcuserdata/*.xcuserdatad/
+
+# React Native specific
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+*.jks
+*.keystore
+
+# Misc
+.DS_Store
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+*.log
+*.swp
+*.swo
+*.tmp
+*.temp
+
