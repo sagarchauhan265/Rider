@@ -94,7 +94,7 @@ const gotoPayment = () => {
           destination={destination}
           strokeWidth={5}
           strokeColor={colorMain.blueColor}
-          apikey={'AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo'}
+          apikey={'API Key'}
         />
         <Marker coordinate={origin}>
           <Image source={imageName.greenDot} style={{ height: 16, width: 16 }} />

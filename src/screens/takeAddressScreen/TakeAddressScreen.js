@@ -39,8 +39,8 @@ const TakeAddressScreen = (props) => {
                 const reqOpts = {
                     method: "POST",
                 };
-                // let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${searchKeyword}&key=AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo`;
-                let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo&input=${searchKeyword}`;
+                // let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${searchKeyword}&key=API Key`;
+                let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=API Key&input=${searchKeyword}`;
                 const response = await fetch(url, reqOpts);
                 const data = await response.json();
                 console.log("errrrrrrrrr", data);
@@ -66,8 +66,8 @@ const TakeAddressScreen = (props) => {
                 const reqOpts = {
                     method: "POST",
                 };
-                // let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyAKVuQDG3sj4-eTfJjcIDeBrI3LYaM9PCE&input=${this.state.searchDestKeyword}`;
-                let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo&input=${searchDestKeyword}`;
+                // let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=API Key&input=${this.state.searchDestKeyword}`;
+                let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=API Key&input=${searchDestKeyword}`;
 
                 const response = await fetch(url, reqOpts);
                 const data = await response.json();
@@ -101,7 +101,7 @@ const TakeAddressScreen = (props) => {
             const reqOpts = {
                 method: "POST",
             };
-            let url = `https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo&placeid=${destPlaceId}`;
+            let url = `https://maps.googleapis.com/maps/api/place/details/json?key=API Key&placeid=${destPlaceId}`;
             const response = await fetch(url, reqOpts);
             const data = await response.json();
             setdestLat(data?.result?.geometry?.location.lat);
@@ -121,7 +121,7 @@ const TakeAddressScreen = (props) => {
             const reqOpts = {
                 method: "POST",
             };
-            let url = `https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo&placeid=${iniPlaceId}`;
+            let url = `https://maps.googleapis.com/maps/api/place/details/json?key=API Key&placeid=${iniPlaceId}`;
             const response = await fetch(url, reqOpts);
             const data = await response.json();
             setiniLat(data?.result?.geometry?.location.lat);
@@ -172,7 +172,7 @@ const TakeAddressScreen = (props) => {
             const destination = { latitude: destLat, longitude: destLong };
 
             // Google Maps API key
-            const apiKey = 'AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo';
+            const apiKey = 'API Key';
 
             // Construct the API URL
             const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&key=${apiKey}`;
@@ -203,7 +203,7 @@ const TakeAddressScreen = (props) => {
 
     const GetCurrenAndSet = () => {
 
-        Geocoder.init("AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo"); // Initialize Geocoder
+        Geocoder.init("API Key"); // Initialize Geocoder
 
         Geolocation.getCurrentPosition(
             (position) => {
