@@ -138,7 +138,7 @@ const TakeAddressScreen = (props) => {
                 const reqOpts = {
                     method: "POST",
                 };
-                let url = `https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyCuSvci8lirkNBrHMr_fK3jX80gZRL0CKw&placeid=${placeId}`;
+                let url = `https://maps.googleapis.com/maps/api/place/details/json?key=API Key&placeid=${placeId}`;
                 const response = await fetch(url, reqOpts);
                 const data = await response.json();
                 this.setState({
