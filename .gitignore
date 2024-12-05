@@ -2,9 +2,6 @@
 # Build artifacts
 android/.gradle/
 android/app/build/
-android/app/src/main/res/mipmap-*/ic_launcher.png
-android/app/src/main/res/mipmap-*/ic_launcher_round.png
-ios/build/
 ios/Pods/
 ios/Podfile.lock
 node_modules
@@ -22,8 +19,7 @@ npm-debug.log
 yarn-error.log
 package-lock.json
 yarn.lock
-*.jks
-*.keystore
+
 
 # Misc
 .DS_Store
