@@ -38,7 +38,7 @@ const HomeScreen = (props) => {
   ];
 
   useEffect(() => {
-    Geocoder.init("API Key"); // Initialize Geocoder
+    Geocoder.init("AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo"); // Initialize Geocoder
 
     Geolocation.getCurrentPosition(
       (position) => {

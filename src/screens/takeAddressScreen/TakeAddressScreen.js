@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import TextInputComponent from "../../component/textInputComponent/TextInputComponent";
 import { onGetProfileRequest } from "../../Redux/sagas/index";
 import { imageName } from "../../constant/Images";
+import Geocoder from 'react-native-geocoding';
+import Geolocation from 'react-native-geolocation-service';
 
 
 const TakeAddressScreen = (props) => {
@@ -39,8 +41,8 @@ const TakeAddressScreen = (props) => {
                 const reqOpts = {
                     method: "POST",
                 };
-                // let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${searchKeyword}&key=API Key`;
-                let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=API Key&input=${searchKeyword}`;
+                // let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${searchKeyword}&key=AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo`;
+                let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo&input=${searchKeyword}`;
                 const response = await fetch(url, reqOpts);
                 const data = await response.json();
                 console.log("errrrrrrrrr", data);
@@ -66,8 +68,8 @@ const TakeAddressScreen = (props) => {
                 const reqOpts = {
                     method: "POST",
                 };
-                // let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=API Key&input=${this.state.searchDestKeyword}`;
-                let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=API Key&input=${searchDestKeyword}`;
+                // let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyAKVuQDG3sj4-eTfJjcIDeBrI3LYaM9PCE&input=${this.state.searchDestKeyword}`;
+                let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo&input=${searchDestKeyword}`;
 
                 const response = await fetch(url, reqOpts);
                 const data = await response.json();
@@ -101,7 +103,7 @@ const TakeAddressScreen = (props) => {
             const reqOpts = {
                 method: "POST",
             };
-            let url = `https://maps.googleapis.com/maps/api/place/details/json?key=API Key&placeid=${destPlaceId}`;
+            let url = `https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo&placeid=${destPlaceId}`;
             const response = await fetch(url, reqOpts);
             const data = await response.json();
             setdestLat(data?.result?.geometry?.location.lat);
@@ -121,7 +123,7 @@ const TakeAddressScreen = (props) => {
             const reqOpts = {
                 method: "POST",
             };
-            let url = `https://maps.googleapis.com/maps/api/place/details/json?key=API Key&placeid=${iniPlaceId}`;
+            let url = `https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo&placeid=${iniPlaceId}`;
             const response = await fetch(url, reqOpts);
             const data = await response.json();
             setiniLat(data?.result?.geometry?.location.lat);
@@ -138,7 +140,7 @@ const TakeAddressScreen = (props) => {
                 const reqOpts = {
                     method: "POST",
                 };
-                let url = `https://maps.googleapis.com/maps/api/place/details/json?key=API Key&placeid=${placeId}`;
+                let url = `https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyCuSvci8lirkNBrHMr_fK3jX80gZRL0CKw&placeid=${placeId}`;
                 const response = await fetch(url, reqOpts);
                 const data = await response.json();
                 this.setState({
@@ -156,12 +158,14 @@ const TakeAddressScreen = (props) => {
         }
     };
     const OnGo = () => {
+        if (iniLat && iniLong && destLat && destLong) {
         props.navigation.navigate(ScreensName.mainMapScreen, {
             iniLatt: parseFloat(iniLat),
             iniLongg: parseFloat(iniLong),
             destLatt: parseFloat(destLat),
             destLongg: parseFloat(destLong),
         });
+    }
     }
 
     useEffect(() => {
@@ -172,7 +176,7 @@ const TakeAddressScreen = (props) => {
             const destination = { latitude: destLat, longitude: destLong };
 
             // Google Maps API key
-            const apiKey = 'API Key';
+            const apiKey = 'AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo';
 
             // Construct the API URL
             const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&key=${apiKey}`;
@@ -201,9 +205,24 @@ const TakeAddressScreen = (props) => {
         }
     }, [iniLat, iniLong, destLat, destLong]);
 
-    const GetCurrenAndSet = () => {
+    const fetchMyAPI = async (initaddres) => {
+        // try {
+        const reqOpts = {
+            method: "POST",
+        };
+        let url = `https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo&placeid=${initaddres}`;
+        const response = await fetch(url, reqOpts);
+        const data = await response.json();
+        setiniLat(data?.result?.geometry?.location.lat);
+        setiniLong(data?.result?.geometry?.location.lng);
+    }
 
-        Geocoder.init("API Key"); // Initialize Geocoder
+
+
+
+    const GetCurrenAndSet = () => {
+Alert.alert("hi")
+        Geocoder.init("AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo"); // Initialize Geocoder
 
         Geolocation.getCurrentPosition(
             (position) => {
@@ -211,7 +230,8 @@ const TakeAddressScreen = (props) => {
                 Geocoder.from(latitude, longitude)
                     .then(json => {
                         const address = json.results[0].formatted_address;
-                        setSearchDestKeyword(address); // Set the address to state
+                        setSearchKeyword(address); // Set the address to state
+                        fetchMyAPI(address)
                     })
                     .catch(error => console.warn(error));
             },
@@ -224,6 +244,12 @@ const TakeAddressScreen = (props) => {
     }
 
 
+    const swapValues = () => {
+        // Swap the values of input1 and input2
+        const temp = searchKeyword;
+        setSearchKeyword(searchDestKeyword);
+        setSearchDestKeyword(temp);
+      };
 
     return (
         <View style={Styles.container}>
@@ -252,7 +278,7 @@ const TakeAddressScreen = (props) => {
                             marginTop: 10,
                         }}>
                             <TouchableOpacity
-                                onPress={() => GetCurrenAndSet}
+                                onPress={() => GetCurrenAndSet()}
                                 style={{
                                     alignItems: 'center', justifyContent: 'center', marginRight: 10,
                                     borderRadius: 5,
@@ -307,13 +333,15 @@ const TakeAddressScreen = (props) => {
                         </View>
                     </View>
                     <View style={{ marginLeft: -20, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                        <View style={{
+                        <TouchableOpacity 
+                         onPress={()=> swapValues()}
+                        style={{
                             alignItems: 'center', justifyContent: 'center',
                             borderRadius: 5,
                             height: 40, width: 40, backgroundColor: colorMain.pinkColor
                         }}>
                             <Image source={imageName.circleSwap} />
-                        </View>
+                        </TouchableOpacity>
 
                     </View>
                 </View>

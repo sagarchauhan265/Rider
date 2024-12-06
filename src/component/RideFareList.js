@@ -3,13 +3,6 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { imageName } from "../constant/Images";
-const rides = [
-    { id: '1', name: "Pink Bike", seats: 1, time: "2 min away", drop: "Drop 1:30 PM", price: "₹193", image: "https://placehold.co/50x50?text=Pink+Bike" },
-    { id: '2', name: "Cab Economy", seats: 4, time: "2 min away", drop: "Drop 1:30 PM", price: "₹393", image: "https://placehold.co/50x50?text=Cab+Economy" },
-    { id: '3', name: "Bike", seats: 1, time: "2 min away", drop: "Drop 1:30 PM", price: "₹153", image: "https://placehold.co/50x50?text=Bike" },
-    { id: '4', name: "Toto (e rick)", seats: 4, time: "2 min away", drop: "Drop 1:30 PM", price: "₹173", image: "https://placehold.co/50x50?text=Toto+%28e+rick%29" },
-    { id: '5', name: "Auto", seats: 3, time: "2 min away", drop: "Drop 1:30 PM", price: "₹213", image: "https://placehold.co/50x50?text=Auto" }
-]
 
 export default RideFareList = ({ rides, onRideSelect,selectedId}) => {
 
@@ -52,9 +45,11 @@ export default RideFareList = ({ rides, onRideSelect,selectedId}) => {
                     </View>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText}>Cash</Text>
+                        <Image resizeMode='contain' source={require('../assets/images/money.png') }  /> 
+                        <Text style={styles.buttonText}>Cash</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button}>
+                        <Image resizeMode='contain' source={require('../assets/images/discount.png') }  /> 
                             <Text style={styles.buttonText}>Offer</Text>
                         </TouchableOpacity>
                     </View>
@@ -133,10 +128,14 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 8,
         elevation: 2,
-        flex:1
+        flex:1,
+        flexDirection: 'row',
+
     },
     buttonText: {
         color: 'black',
+        fontSize: 16,
+        padding: 3
     },
     bookButton: {
         backgroundColor: 'pink',

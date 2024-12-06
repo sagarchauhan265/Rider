@@ -6,7 +6,7 @@ import { colorMain } from "../../constant/Colors";
 import { ScreensName, StringData } from "../../constant/StringC";
 import Styles from "./MainMapStyle";
 import BottomSheet from 'react-native-simple-bottom-sheet';
-import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, Polyline ,Callout} from 'react-native-maps';
 import { imageName } from "../../constant/Images";
 import ButtonComponent from "../../component/buttonComponent/ButtonComponent";
 import { useRoute } from "@react-navigation/native"
@@ -15,6 +15,10 @@ import Icons from 'react-native-vector-icons/AntDesign';
 import CashAndOffer from "../../component/CashAndOffer";
 import RideFareList from "../../component/RideFareList";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+import Geolocation from 'react-native-geolocation-service';
+
 const MainMapScreen = (props, navigation) => {
   const [selectedId, setSelectedId] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -22,8 +26,8 @@ const MainMapScreen = (props, navigation) => {
   const route = useRoute();
   const origin = { latitude: route.params.iniLatt, longitude: route.params.iniLongg };
   const destination = { latitude: route.params.destLatt, longitude: route.params.destLongg };
-
-
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const mapRef = React.createRef();
   /// call fare api
 
   const fetchData = async (originLat, originLong, destinationLat, destinationLong, isSurge = false, isNight = false) => {
@@ -75,6 +79,9 @@ const gotoPayment = () => {
   props.navigation.navigate(ScreensName.PaymentPage, {selectedItem});
 }
 
+
+
+
   return (
     <View style={Styles.container}>
       <MapView
@@ -84,8 +91,8 @@ const gotoPayment = () => {
         initialRegion={{
           latitude: route.params.iniLatt,
           longitude: route.params.iniLongg,
-          latitudeDelta: 0.088,
-          longitudeDelta: 0.088,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
         }}
         mapType="standard"
       >
@@ -94,16 +101,23 @@ const gotoPayment = () => {
           destination={destination}
           strokeWidth={5}
           strokeColor={colorMain.blueColor}
-          apikey={'API Key'}
+          apikey={'AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo'}
         />
         <Marker coordinate={origin}>
           <Image source={imageName.greenDot} style={{ height: 16, width: 16 }} />
+          <Callout>
+            <View>
+              <Text style={{color:'red'}}>Source</Text>
+            </View>
+          </Callout>
         </Marker>
         <Marker coordinate={destination}>
           <Image source={imageName.redDot} style={{ height: 16, width: 16 }} />
         </Marker>
 
       </MapView>
+     
+
       <View style={Styles.milesTextMain}>
       <RideFareList rides={Farelist}  onRideSelect ={handleRideSelect}  selectedId={selectedId} />
         

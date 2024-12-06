@@ -60,5 +60,13 @@ const Styles = StyleSheet.create({
         height: 37,
         marginRight:10
     },
+    map: {
+        flex: 0.5,
+        width: '100%',
+      },
+      markerImage: {
+        height: 16,
+        width: 16,
+      },
 });
 export default Styles;
