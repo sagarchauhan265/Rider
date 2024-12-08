@@ -8,7 +8,7 @@ const CurrentLocationMap = () => {
     const [currentLocation, setCurrentLocation] = useState(null);
 
     useEffect(() => {
-   
+
         const requestLocationPermission = async () => {
             if (Platform.OS === 'android') {
                 const granted = await PermissionsAndroid.request(
@@ -37,7 +37,7 @@ const CurrentLocationMap = () => {
                 (position) => {
                     const { latitude, longitude } = position.coords;
                     setCurrentLocation({ latitude, longitude });
-                    console.log("loc",latitude, longitude)
+                    console.log("loc", latitude, longitude)
                 },
                 (error) => {
                     console.log('Error getting location: ', error);
@@ -50,19 +50,22 @@ const CurrentLocationMap = () => {
     }, []);
 
     if (!currentLocation) {
-        return null; 
+        return null;
     }
 
     return (
         <View style={{}}>
             <MapView
+            mapPadding={{ top: 250, right: 0, bottom: 0, left: 0 }}
                 provider={PROVIDER_GOOGLE}
                 style={{ height: '100%', width: '100%' }}
+                // showsUserLocation={true}
+                // showsMyLocationButton={true}
                 initialRegion={{
                     latitude: currentLocation.latitude,
                     longitude: currentLocation.longitude,
-                    latitudeDelta: 0.005, // Zoomed in closer
-                    longitudeDelta: 0.005, // Zoomed in closer
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
                 }}
             >
                 <Marker coordinate={currentLocation}>

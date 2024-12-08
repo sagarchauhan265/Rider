@@ -37,25 +37,7 @@ export default RideFareList = ({ rides, onRideSelect,selectedId}) => {
             data={rides}
             renderItem={renderItem}
             keyExtractor={item => item.id}
-            ListFooterComponent={
-                <>
-                    <View style={styles.offerContainer}>
-                        {/* <FontAwesome name="gift" size={16} color="pink" /> */}
-                        <Text style={styles.offerText}>Get 50% Off on First Ride</Text>
-                    </View>
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button}>
-                        <Image resizeMode='contain' source={require('../assets/images/money.png') }  /> 
-                        <Text style={styles.buttonText}>Cash</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button}>
-                        <Image resizeMode='contain' source={require('../assets/images/discount.png') }  /> 
-                            <Text style={styles.buttonText}>Offer</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                </>
-            }
+         
         />
     );
 };

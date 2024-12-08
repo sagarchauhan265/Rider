@@ -134,38 +134,46 @@ const TakeAddressScreen = (props) => {
 
 
     // get destination location
-    loacationDestDetail = async (placeId) => {
-        if (placeId) {
-            try {
-                const reqOpts = {
-                    method: "POST",
-                };
-                let url = `https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyCuSvci8lirkNBrHMr_fK3jX80gZRL0CKw&placeid=${placeId}`;
-                const response = await fetch(url, reqOpts);
-                const data = await response.json();
-                this.setState({
-                    destLat: data.result.geometry.location.lat,
-                    destLog: data.result.geometry.location.lng,
-                });
-                console.log(
-                    "initiallll locationnnnnn------------------->",
-                    this.state.destLat,
-                    this.state.destLog
-                );
-            } catch (error) {
-                alert(error);
-            }
-        }
-    };
+    // loacationDestDetail = async (placeId) => {
+    //     if (placeId) {
+    //         try {
+    //             const reqOpts = {
+    //                 method: "POST",
+    //             };
+    //             let url = `https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyCuSvci8lirkNBrHMr_fK3jX80gZRL0CKw&placeid=${placeId}`;
+    //             const response = await fetch(url, reqOpts);
+    //             const data = await response.json();
+    //             this.setState({
+    //                 destLat: data.result.geometry.location.lat,
+    //                 destLog: data.result.geometry.location.lng,
+    //             });
+    //             console.log(
+    //                 "initiallll locationnnnnn------------------->",
+    //                 this.state.destLat,
+    //                 this.state.destLog
+    //             );
+    //         } catch (error) {
+    //             alert(error);
+    //         }
+    //     }
+    // };
+
+
+
     const OnGo = () => {
+        console.log("sent data", iniLat, iniLong, destLat, destLong);
         if (iniLat && iniLong && destLat && destLong) {
-        props.navigation.navigate(ScreensName.mainMapScreen, {
-            iniLatt: parseFloat(iniLat),
-            iniLongg: parseFloat(iniLong),
-            destLatt: parseFloat(destLat),
-            destLongg: parseFloat(destLong),
-        });
-    }
+            props.navigation.navigate(ScreensName.mainMapScreen, {
+                iniLatt: parseFloat(iniLat),
+                iniLongg: parseFloat(iniLong),
+                destLatt: parseFloat(destLat),
+                destLongg: parseFloat(destLong),
+                sourcename: searchKeyword,
+                destiname: searchDestKeyword,
+            });
+        }
+        setSearchKeyword('');
+        setSearchDestKeyword('');
     }
 
     useEffect(() => {
@@ -213,15 +221,13 @@ const TakeAddressScreen = (props) => {
         let url = `https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo&placeid=${initaddres}`;
         const response = await fetch(url, reqOpts);
         const data = await response.json();
+        console.log("current loc source", data);
         setiniLat(data?.result?.geometry?.location.lat);
         setiniLong(data?.result?.geometry?.location.lng);
     }
 
-
-
-
     const GetCurrenAndSet = () => {
-Alert.alert("hi")
+        Alert.alert("hi")
         Geocoder.init("AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo"); // Initialize Geocoder
 
         Geolocation.getCurrentPosition(
@@ -230,8 +236,10 @@ Alert.alert("hi")
                 Geocoder.from(latitude, longitude)
                     .then(json => {
                         const address = json.results[0].formatted_address;
+                        const placeId = json.results[0].place_id;
+                        console.log("place id", json.results[0].place_id)
                         setSearchKeyword(address); // Set the address to state
-                        fetchMyAPI(address)
+                        fetchMyAPI(placeId)
                     })
                     .catch(error => console.warn(error));
             },
@@ -249,7 +257,14 @@ Alert.alert("hi")
         const temp = searchKeyword;
         setSearchKeyword(searchDestKeyword);
         setSearchDestKeyword(temp);
-      };
+        const tempSource = iniLat;
+        setiniLat(destLat)
+        setdestLat(tempSource)
+        const tempDest = iniLong;
+        setiniLong(destLong)
+        setdestLong(tempDest)
+        //  iniLat, iniLong,destLat,destLong
+    };
 
     return (
         <View style={Styles.container}>
@@ -333,13 +348,13 @@ Alert.alert("hi")
                         </View>
                     </View>
                     <View style={{ marginLeft: -20, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                        <TouchableOpacity 
-                         onPress={()=> swapValues()}
-                        style={{
-                            alignItems: 'center', justifyContent: 'center',
-                            borderRadius: 5,
-                            height: 40, width: 40, backgroundColor: colorMain.pinkColor
-                        }}>
+                        <TouchableOpacity
+                            onPress={() => swapValues()}
+                            style={{
+                                alignItems: 'center', justifyContent: 'center',
+                                borderRadius: 5,
+                                height: 40, width: 40, backgroundColor: colorMain.pinkColor
+                            }}>
                             <Image source={imageName.circleSwap} />
                         </TouchableOpacity>
 

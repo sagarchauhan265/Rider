@@ -38,8 +38,8 @@ const MenuScreen = (props) => {
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Image source={imageName.appLogo} style={Styles.imageMain} />
               <View>
-                <Text style={Styles.textMn}>{'Gourav jangra'}</Text>
-                <Text style={Styles.textMnt}>{'9729008570'}</Text>
+                <Text style={Styles.textMn}>{'Sam'}</Text>
+                <Text style={Styles.textMnt}>{'1234567898'}</Text>
               </View>
             </View>
             <Icon

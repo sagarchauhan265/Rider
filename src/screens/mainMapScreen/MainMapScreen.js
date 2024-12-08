@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView, Image, Alert} from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import { Alert, TextInput } from "../../../node_modules/react-native/types/index";
 import { colorMain } from "../../constant/Colors";
 import { ScreensName, StringData } from "../../constant/StringC";
 import Styles from "./MainMapStyle";
 import BottomSheet from 'react-native-simple-bottom-sheet';
-import MapView, { PROVIDER_GOOGLE, Marker, Polyline ,Callout} from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, Polyline, Callout } from 'react-native-maps';
 import { imageName } from "../../constant/Images";
 import ButtonComponent from "../../component/buttonComponent/ButtonComponent";
 import { useRoute } from "@react-navigation/native"
@@ -72,12 +72,12 @@ const MainMapScreen = (props, navigation) => {
     // console.log("Selected Ride Data:", selectedRide);
     setSelectedItem(selectedRide);
     setSelectedId(selectedRide.id)
-};
+  };
 
-/// Goto payment page
-const gotoPayment = () => {
-  props.navigation.navigate(ScreensName.PaymentPage, {selectedItem});
-}
+  /// Goto payment page
+  const gotoPayment = () => {
+    props.navigation.navigate(ScreensName.PaymentPage, { selectedItem });
+  }
 
 
 
@@ -85,14 +85,25 @@ const gotoPayment = () => {
   return (
     <View style={Styles.container}>
       <MapView
-        // customMapStyle={mapStyle}
-        // provider={PROVIDER_GOOGLE}
+        mapPadding={{ top: 200, right: 0, bottom: 0, left: 0 }}
+        apikey={'AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo'}
+        showsUserLocation={true}
+        showsMyLocationButton={true}
+        // showsIndoors={true}
+        // zoomControlEnabled={true}
+        // zoomEnabled={true}
+        // zoomTapEnabled={true}
+        // showsScale={true}
+        // showsBuildings={true}
+        // showsCompass={true}
+        customMapStyle={Styles.mapStyle}
+        provider={PROVIDER_GOOGLE}
         style={{ flex: 0.5, width: '100%' }}
         initialRegion={{
           latitude: route.params.iniLatt,
           longitude: route.params.iniLongg,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.005,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
         }}
         mapType="standard"
       >
@@ -105,27 +116,38 @@ const gotoPayment = () => {
         />
         <Marker coordinate={origin}>
           <Image source={imageName.greenDot} style={{ height: 16, width: 16 }} />
-          <Callout>
-            <View>
-              <Text style={{color:'red'}}>Source</Text>
-            </View>
-          </Callout>
+
+          <Callout tooltip style={{ backgroundColor: 'white', minWidth: 100, maxWidth: 400 }}><Text style={{ color: 'black' }}>{route?.params?.sourcename?.substring(0, 20)}</Text></Callout>
         </Marker>
         <Marker coordinate={destination}>
           <Image source={imageName.redDot} style={{ height: 16, width: 16 }} />
+          <Callout tooltip style={{ backgroundColor: 'white', minWidth: 100, maxWidth: 400 }}><Text style={{ color: 'black' }}>{route?.params?.destiname?.substring(0, 20)}</Text></Callout>
         </Marker>
 
       </MapView>
-     
+
 
       <View style={Styles.milesTextMain}>
-      <RideFareList rides={Farelist}  onRideSelect ={handleRideSelect}  selectedId={selectedId} />
-        
+        <RideFareList rides={Farelist} onRideSelect={handleRideSelect} selectedId={selectedId} />
+        <View style={Styles.offerContainer}>
+          {/* <FontAwesome name="gift" size={16} color="pink" /> */}
+          <Text style={Styles.offerText}>Get 50% Off on First Ride</Text>
+        </View>
+        <View style={Styles.buttonContainer}>
+          <TouchableOpacity style={Styles.button}>
+            <Image resizeMode='contain' source={require('../../assets/images/money.png')} />
+            <Text style={Styles.buttonText}>Cash</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={Styles.button}>
+            <Image resizeMode='contain' source={require('../../assets/images/discount.png')} />
+            <Text style={Styles.buttonText}>Offer</Text>
+          </TouchableOpacity>
+        </View>
         <ButtonComponent title={'Book Ride'}
           onPress={() => gotoPayment()} />
       </View>
       <View style={{
-        height: 120,
+        height: 100,
         position: "absolute",
         right: 0,
         left: 0,

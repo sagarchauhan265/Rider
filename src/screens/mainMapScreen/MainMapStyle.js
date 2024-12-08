@@ -12,6 +12,7 @@ const Styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: colorMain.whiteColor
     },
+    mapStyle:{ flex:1},
     roundHelp: {
         height: 40,
         borderWidth: 0.5,
@@ -68,5 +69,61 @@ const Styles = StyleSheet.create({
         height: 16,
         width: 16,
       },
+      offerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 16,
+        backgroundColor:'#EB6586',
+        padding: 3,
+    },
+    offerText: {
+        color: 'white',
+        marginLeft: 8,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 16,
+    },
+    button: {
+        backgroundColor: 'white',
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 2,
+        flex:1,
+        flexDirection: 'row',
+
+    },
+    buttonText: {
+        color: 'black',
+        fontSize: 16,
+        padding: 3
+    },
+    bookButton: {
+        backgroundColor: 'pink',
+        paddingVertical: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    bookButtonText: {
+        color: 'white',
+        fontWeight: 'bold',
+    }, btmIcon: {
+        width: 55,
+        height: 37,
+        marginRight: 10
+    },
+    selectedItemContainer:{
+        borderColor:'grey',
+        borderWidth:1,
+        padding:3,
+        borderRadius:5,
+    },
 });
 export default Styles;

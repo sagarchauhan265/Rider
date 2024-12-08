@@ -96,7 +96,9 @@ const HomeScreen = (props) => {
        
         <View>
           <View style={Styles.milesTextMain}>
-            <TouchableOpacity style={Styles.wherGoingOuter}>
+            <TouchableOpacity 
+             onPress={() => props.navigation.navigate(ScreensName.takeAddressScreen)}
+            style={Styles.wherGoingOuter}>
               <Icon
                 name={'magnify'}
                 color={colorMain.blackColor}
