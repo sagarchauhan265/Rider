@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useCallback } from "react";
 import { View, Text, TouchableOpacity, FlatList, Image, Alert } from 'react-native';
 import ButtonComponent from "../../component/buttonComponent/ButtonComponent";
 import Icons from 'react-native-vector-icons/MaterialIcons';
@@ -14,7 +14,7 @@ import { onGetProfileRequest } from "../../Redux/sagas/index";
 import { imageName } from "../../constant/Images";
 import Geocoder from 'react-native-geocoding';
 import Geolocation from 'react-native-geolocation-service';
-
+import { useFocusEffect } from '@react-navigation/native';
 
 const TakeAddressScreen = (props) => {
     // const [pickup, setPickup] = useState('');
@@ -213,6 +213,13 @@ const TakeAddressScreen = (props) => {
         }
     }, [iniLat, iniLong, destLat, destLong]);
 
+
+    useFocusEffect(
+        useCallback(() => {
+            GetCurrenAndSet();
+        }, [])
+    );
+
     const fetchMyAPI = async (initaddres) => {
         // try {
         const reqOpts = {
@@ -227,7 +234,7 @@ const TakeAddressScreen = (props) => {
     }
 
     const GetCurrenAndSet = () => {
-        Alert.alert("hi")
+
         Geocoder.init("AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo"); // Initialize Geocoder
 
         Geolocation.getCurrentPosition(

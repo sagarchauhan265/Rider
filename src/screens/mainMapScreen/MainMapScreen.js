@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useRef} from "react";
 import { View, Text, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import { Alert, TextInput } from "../../../node_modules/react-native/types/index";
@@ -28,8 +28,16 @@ const MainMapScreen = (props, navigation) => {
   const destination = { latitude: route.params.destLatt, longitude: route.params.destLongg };
   const [currentLocation, setCurrentLocation] = useState(null);
   const mapRef = React.createRef();
+  const markerRef = useRef(null);
   /// call fare api
 
+  const handleMapReady = () => {
+    if (markerRef.current) {
+      setTimeout(() => {
+        markerRef.current.showCallout()
+      }, 100)
+    }
+  }
   const fetchData = async (originLat, originLong, destinationLat, destinationLong, isSurge = false, isNight = false) => {
     const myHeaders = new Headers();
 
@@ -106,6 +114,7 @@ const MainMapScreen = (props, navigation) => {
           longitudeDelta: 0.0421,
         }}
         mapType="standard"
+        onMapReady={handleMapReady}
       >
         <MapViewDirections
           origin={origin}
@@ -114,14 +123,16 @@ const MainMapScreen = (props, navigation) => {
           strokeColor={colorMain.blueColor}
           apikey={'AIzaSyBptxrRpSLKE2pYCk5Lqr9fg7g7rrFWPOo'}
         />
-        <Marker coordinate={origin}>
+        <Marker ref={markerRef}  coordinate={origin}>
           <Image source={imageName.greenDot} style={{ height: 16, width: 16 }} />
 
-          <Callout tooltip style={{ backgroundColor: 'white', minWidth: 100, maxWidth: 400 }}><Text style={{ color: 'black' }}>{route?.params?.sourcename?.substring(0, 20)}</Text></Callout>
+          <Callout tooltip={true} style={{ backgroundColor: 'white', minWidth: 100, maxWidth: 400 }}>
+            <Text style={{ color: 'black' }}>{route?.params?.sourcename?.substring(0, 20)}</Text></Callout>
         </Marker>
-        <Marker coordinate={destination}>
+        <Marker ref={markerRef} coordinate={destination}>
           <Image source={imageName.redDot} style={{ height: 16, width: 16 }} />
-          <Callout tooltip style={{ backgroundColor: 'white', minWidth: 100, maxWidth: 400 }}><Text style={{ color: 'black' }}>{route?.params?.destiname?.substring(0, 20)}</Text></Callout>
+          <Callout tooltip={true} style={{ backgroundColor: 'white', minWidth: 100, maxWidth: 400 }}>
+            <Text style={{ color: 'black' }}>{route?.params?.destiname?.substring(0, 20)}</Text></Callout>
         </Marker>
 
       </MapView>

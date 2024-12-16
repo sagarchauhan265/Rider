@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, Button, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { View, Text, Button, TouchableOpacity, Image, ImageBackground ,KeyboardAvoidingView} from 'react-native';
 import ButtonComponent from "../../component/buttonComponent/ButtonComponent";
 import { imageName } from "../../constant/Images";
 import { ScreensName, StringData } from "../../constant/StringC";
@@ -93,7 +93,7 @@ const PhoneScreen = (props) => {
 
 
   return (
-    <View style={Styles.container}>
+    <KeyboardAvoidingView style={Styles.container}>
       <ShowProgressBar isLoaderShow={loadingSEND} message={'Loading...'} />
       
       <ImageBackground
@@ -139,6 +139,7 @@ const PhoneScreen = (props) => {
                 keyboardType={'numeric'}
                 maxLength={10}
               />
+             
             </View>
             <View style={{ flex: 0.4 }} />
             {/* <Image source={imageName.girlTwo} style={Styles.imageMiddle} /> */}
@@ -153,7 +154,6 @@ const PhoneScreen = (props) => {
                   <Text style={Styles.termText}>Privacy Policy</Text>
                 </TouchableOpacity>
               </View>
-
             
               <ButtonComponent onPress={afterSubmit} title={StringData.next} />
             </View>
@@ -162,7 +162,7 @@ const PhoneScreen = (props) => {
         <Toast />
       </ImageBackground>
 
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 

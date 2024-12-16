@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { View, Text, TouchableOpacity, Image, ImageBackground ,KeyboardAvoidingView,ScrollView} from 'react-native';
+import { View, Text, TouchableOpacity, Image, ImageBackground, KeyboardAvoidingView, ScrollView, Alert } from 'react-native';
 import ButtonComponent from "../../component/buttonComponent/ButtonComponent";
 import { ScreensName, StringData } from "../../constant/StringC";
 import Styles from "./OtpStyle";
 import Icon from 'react-native-vector-icons/AntDesign';
 import { colorMain } from "../../constant/Colors";
 import { OtpInput } from "react-native-otp-entry";
-import { verifyRequest, sendOtpFailure,getProfileRequest } from '../../Redux/actions/index';
+import { verifyRequest, sendOtpFailure, getProfileRequest,sendOtpRequest } from '../../Redux/actions/index';
 import { useDispatch, useSelector } from 'react-redux';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -31,24 +31,15 @@ const OtpScreen = (props) => {
     });
   };
 
-  const showToastError = () => {
+  const showToastError = (error) => {
     Toast.show({
       type: 'error',
-      text1: 'Server Error!',
-      text2: 'Something went wrong please try again!',
+      text1: error,
+      //   text2: 'Something went wrong please try again!',
     });
   };
 
-  const getMacAddress = async () => {
-    try {
-      const macAddress = await DeviceInfo.getMacAddress();
-      console.log('MAC Address:', macAddress);
-      return macAddress;
-    } catch (error) {
-      console.error('Failed to get MAC Address:', error);
-      return null;
-    }
-  };
+
 
 
 
@@ -59,12 +50,12 @@ const OtpScreen = (props) => {
     // alert('mmmm');
     await AsyncStorage.setItem('TOKEN', jsonValue);
     showToast();
-   if(getProfileData){
-    props.navigation.navigate(ScreensName.drawerNavigation);
-   } else{
-    props.navigation.navigate(ScreensName.drawerNavigation);
-   }
-   
+    if (getProfileData) {
+      props.navigation.navigate(ScreensName.drawerNavigation);
+    } else {
+      props.navigation.navigate(ScreensName.drawerNavigation);
+    }
+
 
   };
 
@@ -74,22 +65,11 @@ const OtpScreen = (props) => {
       console.log(verifyOtpData?.response?.data, 'person....');
       if (verifyOtpData?.response?.data?.code == 200) {
         storeData(verifyOtpData.response.data.data.token);
-        // (async () => {
-        //   if (verifyOtpData.response.data.data.token) {
-        //     await AsyncStorage.setItem(
-        //       AsyncStorage.TOKEN,
-        //       verifyOtpData.response.data.data.token,
-        //     );
-        //     alert(verifyOtpData.response.data.data.token);
-        //     props.navigation.navigate(ScreensName.drawerNavigation);
-        //   }
-        // })();
-
       } else {
-        showToastError();
+        showToastError(verifyOtpData.response.data.message);
         // alert(verifyOtpData.response.data.message);
       }
-      // props.navigation.navigate(ScreensName.otpScreen, { mobile: phone });
+      
     }
   }, [verifyOtpData]);
 
@@ -115,7 +95,7 @@ const OtpScreen = (props) => {
       });
       // props.navigation.navigate(ScreensName.profileScreen);
 
-    dispatch(verifyRequest(raw));
+      dispatch(verifyRequest(raw));
       // const myHeaders = new Headers();
       // myHeaders.append("Content-Type", "application/json");
       // const raw = JSON.stringify({
@@ -137,6 +117,18 @@ const OtpScreen = (props) => {
       // alert('valid done');
     }
   };
+
+
+const onResendOpt=()=>{
+  const PhoneNumber= props.route.params.mobile;
+  dispatch(sendOtpRequest(PhoneNumber));
+  Toast.show({
+    type: 'success',
+    text1: 'OTP send Successfully!',
+    text2: 'Please check your phone',
+  });
+}
+
 
 
   return (
@@ -259,7 +251,7 @@ const OtpScreen = (props) => {
                   <Text style={Styles.errortext}>{otpError}</Text>
                   <View style={{ marginTop: '10%' }}>
                     <Text style={{ alignSelf: 'center', color: 'black' }}>{StringData.didntReceiveCode}</Text>
-                    <TouchableOpacity onPress={() => { props.navigation.navigate(ScreensName.phoneScreen) }}>
+                    <TouchableOpacity onPress={() => onResendOpt()}>
                       <Text style={Styles.termText}> {StringData.resendCode}</Text>
                     </TouchableOpacity>
                   </View>

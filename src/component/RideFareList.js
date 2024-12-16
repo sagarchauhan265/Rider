@@ -1,8 +1,7 @@
 
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import { imageName } from "../constant/Images";
+
 
 export default RideFareList = ({ rides, onRideSelect,selectedId}) => {
 
@@ -20,13 +19,13 @@ export default RideFareList = ({ rides, onRideSelect,selectedId}) => {
                     <Image resizeMode='contain'
                     source={{ uri: item.vehicle_icon }} style={styles.image} />
                     <View >
-                        <Text style={styles.itemName}>{item.name} {item.seat}</Text>
+                        <Text style={styles.itemName}>{item.name} {isSelected?item.seat:null}</Text>
                         <Text style={styles.itemDetails}>{item.duration} mins • {item.drop}</Text>
                     </View>
                 
                 </View>
                 <View style={styles.itemRight}>
-                    <Text style={styles.itemPrice}>{item.total_fare}</Text>
+                    <Text style={styles.itemPrice}>{'\u20B9'} {item.total_fare}</Text>
                 </View>
             </TouchableOpacity>
         );
