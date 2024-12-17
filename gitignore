@@ -1,0 +1,65 @@
+# React Native
+# Build artifacts
+android/.gradle/
+android/app/build/
+android/.idea/
+android/local.properties
+android/app/src/main/assets/index.android.bundle
+android/app/src/main/assets/index.android.bundle.meta
+
+# iOS
+ios/build/
+ios/Pods/
+ios/Podfile.lock
+ios/*.xcworkspace
+ios/*.xcuserstate
+ios/DerivedData/
+ios/.DS_Store
+
+# React Native specific
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+*.jks
+*.keystore
+
+# Miscellaneous
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+*.DS_Store
+*.idea/
+*.vscode/
+*.history/
+*.npmrc
+*.pnp.*
+.pnp.js
+.pnp.cjs
+.pnp.mjs
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# JetBrains IDEs
+.idea/
+*.iml
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
