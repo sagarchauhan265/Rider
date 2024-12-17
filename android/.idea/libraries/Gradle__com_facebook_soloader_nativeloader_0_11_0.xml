@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.facebook.soloader:nativeloader:0.11.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.facebook.soloader" artifactId="nativeloader" version="0.11.0" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.soloader/nativeloader/0.11.0/492cc5082540e19b29328f2f56c53255cb6e7cc6/nativeloader-0.11.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.soloader/nativeloader/0.11.0/675e859dc1f2c129461fd447671a20722a725fd2/nativeloader-0.11.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.soloader/nativeloader/0.11.0/59d9ac0b50c14ea84f3a5f0f3e7d4dcf2cffa215/nativeloader-0.11.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
